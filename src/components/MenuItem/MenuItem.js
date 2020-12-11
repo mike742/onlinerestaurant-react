@@ -1,9 +1,14 @@
 import { React, Component } from 'react';
 
-const menuItem = () => (
+const menuItem = (props) => (
 
     <div>
-        Menu Item #
+        Menu Item :
+        <label>{props.name}</label>
+        <br />
+        CAD{props.price}
+        <br />
+        {props.photoPath}
     </div>
 
 );

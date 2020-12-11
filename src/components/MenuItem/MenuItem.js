@@ -8,7 +8,13 @@ const menuItem = (props) => (
         <br />
         CAD{props.price}
         <br />
-        {props.photoPath}
+        <img  src={props.photoPath} width="200" />
+
+        <hr />
+
+        <button onClick={props.getByIdClicked}> Get Menu Item by id </button>
+        <hr />        
+        <hr />
     </div>
 
 );

@@ -1,51 +1,57 @@
 import { React, Component } from 'react';
-import MenuItem from '../../components/MenuItem/MenuItem';
-import axios from 'axios';
-import CreateMenuItem from '../../components/MenuItem/CreateMenuItem'
+import { Route, Link, Switch } from 'react-router-dom';
+import MenuItems from '../MenuItems/MenuItems';
+import Login from '../Login/Login';
+import { Menu } from 'semantic-ui-react'
 
 class Restaurant extends Component {
 
-    state = {
-        menuItems: [],
-        url: "https://localhost:5001/MenuItem/"
-    }
+    state = { activeItem: 'home' }
 
-    componentDidMount() {
-        //console.log("componentDidMount");
-        axios.get(this.state.url)
-            .then(response => {
-                // console.log(response)
-                this.setState({menuItems: response.data})
-            });
-    }
-
-    getMenuItemByIdHandler = (id) => {
-        axios.get(this.state.url + id)
-            .then(response => {
-                console.log(response)
-            })
-    }
-
+    handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+    
     render() {
 
-        const menuItemsList = this.state.menuItems.map(mi => {
-            return <MenuItem key={mi.id} 
-                name={mi.name} 
-                price={mi.price}
-                photoPath={mi.photoPath}
-                getByIdClicked={() => this.getMenuItemByIdHandler(mi.id)}
-                />
-        });
-
-
-        return(
+        return (
             <div>
-                This is a Restaurant
+                <Menu pointing secondary>
+                    <Menu.Item
+                        as={Link} to='/'
+                        name='home'
+                        active={this.state.activeItem === 'home'}
+                        onClick={this.handleItemClick}
+                    >Menu Items</Menu.Item>
+                    <Menu.Item
+                        as={Link} to='/login'
+                        name='login'
+                        active={this.state.activeItem === 'login'}
+                        onClick={this.handleItemClick}
+                    >Login</Menu.Item>
+                </Menu>
 
-                {menuItemsList}
 
+                {/* <header>
+                    <nav>
+                        <ul>
+                            <li>
+                                <a href="/">Menu Items</a>
+                                <Link to="/">Menu Items</Link>
+                            </li>
+                            <li>
+                                <a href="/login">Login</a>
+                                <Link to="/login">Login</Link>
+                            </li>
+                        </ul>
+                    </nav>
+                </header> */}
 
-                <CreateMenuItem />
+                <h2>This is a Restaurant</h2>
+                <Switch>
+                    <Route path="/" exact component={MenuItems} />
+                    <Route path="/login" exact component={Login} />
+                    <Route render={() => <h3>Not Found</h3>} />
+                    {/* {this.state.auth ? <Route path="/secret" component={ccdd} /> : null } */}
+                </Switch>
             </div>
         );
     }

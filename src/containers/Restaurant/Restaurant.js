@@ -2,6 +2,7 @@ import { React, Component } from 'react';
 import { Route, Link, Switch } from 'react-router-dom';
 import MenuItems from '../MenuItems/MenuItems';
 import Login from '../Login/Login';
+import Cart from '../Cart/Cart';
 import { Menu } from 'semantic-ui-react'
 
 class Restaurant extends Component {
@@ -14,7 +15,7 @@ class Restaurant extends Component {
 
         return (
             <div>
-                <Menu pointing secondary>
+                <Menu pointing inverted fixed="top">
                     <Menu.Item
                         as={Link} to='/'
                         name='home'
@@ -44,11 +45,12 @@ class Restaurant extends Component {
                         </ul>
                     </nav>
                 </header> */}
-
+                <br /><br />    
                 <h2>This is a Restaurant</h2>
                 <Switch>
                     <Route path="/" exact component={MenuItems} />
                     <Route path="/login" exact component={Login} />
+                    <Route path="/cart" exact component={Cart} />
                     <Route render={() => <h3>Not Found</h3>} />
                     {/* {this.state.auth ? <Route path="/secret" component={ccdd} /> : null } */}
                 </Switch>

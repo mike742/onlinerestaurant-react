@@ -5,9 +5,11 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'semantic-ui-css/semantic.min.css';
 
+import { Provider } from 'react-redux';
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider><App /></Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

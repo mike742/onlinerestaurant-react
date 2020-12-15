@@ -1,9 +1,11 @@
-import React, { Component } from 'react';
+import  { React, Component } from 'react';
+
 import MenuItem from '../../components/MenuItem/MenuItem';
 import axios from 'axios';
 import CreateMenuItem from '../../components/MenuItem/CreateMenuItem.js'
 
 class MenuItems extends Component {
+    
     state = {
         menuItems: [],
         url: "https://localhost:5001/MenuItem/",
@@ -34,10 +36,27 @@ class MenuItems extends Component {
 
         this.setState({ cartItems: ci });
 
-        console.log(this.state.cartItems);
+        //console.log(this.state.cartItems);
+    }
+
+    orderNowHandler = () => {
+        const queryParams = [];
+
+        for(let i of this.state.cartItems) {
+            if(i !== null) {
+                queryParams.push(i.id + "=" + i.quantity);
+            }
+        }
+        const queryStr = queryParams.join('&');
+
+        this.props.history.push({
+            pathname: '/cart',
+            search: '?' + queryStr
+        });
     }
 
     render() {
+        //console.log(this.props);
 
         const menuItemsList = this.state.menuItems.map(mi => {
             return <MenuItem key={mi.id} 
@@ -49,12 +68,17 @@ class MenuItems extends Component {
 
                 addToCartClicked={this.addToCartHandler}
                 />
+                
         });
 
         return (
             <div>
                 {menuItemsList}
                 <CreateMenuItem />
+                <div style={{ textAlign: "right", 
+                    top: "80px", right: "60px", position: "fixed" }}>
+                    <button onClick={ this.orderNowHandler } >ORDER NOW!</button>
+                </div>
             </div>
         );
     }

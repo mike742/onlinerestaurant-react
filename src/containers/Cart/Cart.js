@@ -35,8 +35,11 @@ class Cart extends Component {
     }
 
     render() {
-        const menuItems = this.state.cartItems.map(mi => {
-            return <li key={mi.id}>{mi.id} : {mi.qty} </li>  
+        
+        const menuItems = this.props.cartItems.map(mi => {
+            return <li key={mi.id}
+                onClick={ () => this.props.onDeleteCartItem(mi.id) }
+                >{mi.id} : {mi.qty} </li>  
         });
 
         return (

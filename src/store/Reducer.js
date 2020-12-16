@@ -13,7 +13,7 @@ const reducer = (state = initialState, action) => {
     }
 
     if(action.type === 'DELETE_CART_ITEM') {
-
+        //debugger;
         const updatedArr = state.cartItems.filter(e => e.id !== action.idForDelete);
 
         return {

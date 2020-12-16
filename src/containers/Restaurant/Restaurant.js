@@ -5,6 +5,8 @@ import Login from '../Login/Login';
 import Cart from '../Cart/Cart';
 import { Menu } from 'semantic-ui-react'
 
+import ContactInfo from '../ContactInfo/ContactInfo'
+
 class Restaurant extends Component {
 
     state = { activeItem: 'home' }
@@ -51,6 +53,7 @@ class Restaurant extends Component {
                     <Route path="/" exact component={MenuItems} />
                     <Route path="/login" exact component={Login} />
                     <Route path="/cart" exact component={Cart} />
+                    <Route path="/contact-info" exact component={ContactInfo} />
                     <Route render={() => <h3>Not Found</h3>} />
                     {/* {this.state.auth ? <Route path="/secret" component={ccdd} /> : null } */}
                 </Switch>

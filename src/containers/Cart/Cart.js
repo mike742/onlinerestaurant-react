@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import { connect } from 'react-redux';
+
 class Cart extends Component {
 
     state = {
@@ -14,17 +16,22 @@ class Cart extends Component {
         for(let param of query.entries()) {
             items.push({ id: param[0], qty: param[1] });
         }
-        console.log(items);
 
         this.setState({ cartItems: items } );
+
+        this.props.onStoreCartItems(items);
+        console.log("Redux Cart Items: ", this.props.cartItems);
     };
 
     cancelHandler = () => {
         this.props.history.goBack();
     }
 
-    cancelContinue = () => {
-        alert('Done')
+    continueHandler = () => {
+        //alert('Done')
+        this.props.history.push({
+            pathname: '/contact-info',
+        })
     }
 
     render() {
@@ -40,10 +47,23 @@ class Cart extends Component {
                     {menuItems}
                 </ul>
                 <button onClick={this.cancelHandler}>Cancel</button>
-                <button onClick={this.cancelContinue}>Continue</button>
+                <button onClick={this.continueHandler}>Continue</button>
             </div>
         );
     }
 }
 
-export default Cart;
+const mapStateToProps = state => {
+    return {
+        cartItems: state.cartItems
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onStoreCartItems: (items) => dispatch({ type: 'STORE_CART_ITEMS', cartItems: items }),
+        onDeleteCartItem: (id) => dispatch( {type: 'DELETE_CART_ITEM', idForDelete: id } )
+    }
+}
+
+export default  connect(mapStateToProps, mapDispatchToProps)(Cart);

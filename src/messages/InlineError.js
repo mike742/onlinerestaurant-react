@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 
 // rsc
-const InlineError = (text) => {
+const InlineError = ({text}) => {
     return (
         <div style={{color: 'red'}}>
             {text}

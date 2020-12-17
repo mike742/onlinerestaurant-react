@@ -28,11 +28,11 @@ class MenuItems extends Component {
             })
     }
 
-    addToCartHandler = (id, q) => {
+    addToCartHandler = (id, q, name, price) => {
         // console.log(" parent:  " + id + " " + q);
 
         let ci = this.state.cartItems;
-        ci.push({ id: id, quantity: +q });
+        ci.push({ id: id, quantity: +q, name: name, price: +price });
 
         this.setState({ cartItems: ci });
 
@@ -44,7 +44,7 @@ class MenuItems extends Component {
 
         for(let i of this.state.cartItems) {
             if(i !== null) {
-                queryParams.push(i.id + "=" + i.quantity);
+                queryParams.push(i.id + "=" + i.quantity + "|" + i.name + "|" + i.price);
             }
         }
         const queryStr = queryParams.join('&');

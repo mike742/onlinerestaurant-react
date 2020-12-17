@@ -7,9 +7,9 @@ class MenuItem extends Component {
         selected: false
     }
 
-    addToCartClicked = (id, q) => {
+    addToCartClicked = (id, q, name, price) => {
         this.setState({selected: true});
-        this.props.addToCartClicked(id, q);
+        this.props.addToCartClicked(id, q, name, price);
     }
 
     render() {
@@ -30,7 +30,7 @@ class MenuItem extends Component {
 
                 { this.state.selected ? <span> added to Cart</span> : null }
                 <br />
-                <button onClick={ () => { this.addToCartClicked(this.props.id, this.state.qty) } } 
+                <button onClick={ () => { this.addToCartClicked(this.props.id, this.state.qty, this.props.name, this.props.price) } } 
                     disabled={this.state.selected}>
                     Add to Cart
                 </button>

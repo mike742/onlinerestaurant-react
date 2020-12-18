@@ -3,6 +3,7 @@ import  { React, Component } from 'react';
 import MenuItem from '../../components/MenuItem/MenuItem';
 import axios from 'axios';
 import CreateMenuItem from '../../components/MenuItem/CreateMenuItem.js'
+import { Card, Button } from "semantic-ui-react";
 
 class MenuItems extends Component {
     
@@ -13,10 +14,8 @@ class MenuItems extends Component {
     }
 
     componentDidMount() {
-        //console.log("componentDidMount");
         axios.get(this.state.url)
             .then(response => {
-                // console.log(response)
                 this.setState({menuItems: response.data})
             });
     }
@@ -29,14 +28,10 @@ class MenuItems extends Component {
     }
 
     addToCartHandler = (id, q, name, price) => {
-        // console.log(" parent:  " + id + " " + q);
-
         let ci = this.state.cartItems;
         ci.push({ id: id, quantity: +q, name: name, price: +price });
 
         this.setState({ cartItems: ci });
-
-        //console.log(this.state.cartItems);
     }
 
     orderNowHandler = () => {
@@ -56,8 +51,6 @@ class MenuItems extends Component {
     }
 
     render() {
-        //console.log(this.props);
-
         const menuItemsList = this.state.menuItems.map(mi => {
             return <MenuItem key={mi.id} 
                 id={mi.id}
@@ -65,19 +58,20 @@ class MenuItems extends Component {
                 price={mi.price}
                 photoPath={mi.photoPath}
                 getByIdClicked={() => this.getMenuItemByIdHandler(mi.id)}
-
                 addToCartClicked={this.addToCartHandler}
-                />
-                
+                /> 
         });
 
         return (
-            <div>
-                {menuItemsList}
+            <div style={{margin: '10px'}}>
+                <Card.Group>
+                    {menuItemsList}
+                </Card.Group>
+                <hr />
                 <CreateMenuItem />
                 <div style={{ textAlign: "right", 
-                    top: "80px", right: "60px", position: "fixed" }}>
-                    <button onClick={ this.orderNowHandler } >ORDER NOW!</button>
+                    top: "50px", right: "40px", position: "fixed" }}>
+                    <Button basic color='orange' onClick={ this.orderNowHandler } >ORDER NOW!</Button>
                 </div>
             </div>
         );

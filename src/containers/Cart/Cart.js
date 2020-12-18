@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
-import axios from 'axios';
 
 class Cart extends Component {
 
@@ -20,37 +19,33 @@ class Cart extends Component {
         
         for(let param of query.entries()) {
             items.push({ id: param[0], qty: param[1] });
-            let ddd =  param[1].split("|");
-            arr.push({ id: param[0], name: ddd[1], price: ddd[2], qty: ddd[0]})
+            let parsedArr =  param[1].split("|");
+            arr.push({ id: param[0], name: parsedArr[1], price: parsedArr[2], qty: parsedArr[0]})
         }
         this.setState({ menuItems: arr } );
         
         this.setState({ cartItems: items } );
-        console.log("menuItems: ", this.state.menuItems);
 
-        this.props.onStoreCartItems(items);
-        console.log("Redux Cart Items: ", this.props.cartItems);
+        this.props.onDDD(items);
     };
-
-    getMenuItemByIdHandler = (id) => {
-        
-    }
 
     cancelHandler = () => {
         this.props.history.goBack();
     }
 
     continueHandler = () => {
-        //alert('Done')
+
+        alert('You have bought 777$');
+        /*
         this.props.history.push({
             pathname: '/contact-info',
         })
+        */
     }
 
     render() {
         
         const menuItems = this.state.menuItems.map(mi => {
-            //debugger
             return <li key={mi.id}
                 onClick={ () => this.props.onDeleteCartItem(mi.id) }
         >{mi.name} : {mi.qty} -{mi.price}</li>  
@@ -78,7 +73,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onStoreCartItems: (items) => dispatch({ type: 'STORE_CART_ITEMS', cartItems: items }),
+        onDDD: (items) => dispatch({ type: 'STORE_CART_ITEMS', cartItems: items }),
         onDeleteCartItem: (id) => dispatch( {type: 'DELETE_CART_ITEM', idForDelete: id } )
     }
 }
